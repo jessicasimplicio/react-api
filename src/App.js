@@ -27,22 +27,23 @@ class App extends Component {
     };
 
     fetch("https://peaceful-badlands-98440.herokuapp.com/login", options)
-      .then(res => res.json())
-      .then(data => console.log(data));
+      .then(res => {
+        const options = {
+          method: "get",
+          headers: {
+          "Content-type": "application/json"
+          },
+          credentials: "include",
+        };
+
+        fetch("https://peaceful-badlands-98440.herokuapp.com/artists", options)
+          .then(res => res.json())
+          .then(data => this.setState({artists: data}));  
+      })
   }
 
   handleClick() {
-    const options = {
-      method: "get",
-      headers: {
-        "Content-type": "application/json"
-      },
-      credentials: "include",
-    };
-
-    fetch("https://peaceful-badlands-98440.herokuapp.com/artists", options)
-      .then(res => res.json())
-      .then(data => this.setState({artists: data}));
+    
   }
 
   render() {
